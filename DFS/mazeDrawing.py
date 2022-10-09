@@ -1,5 +1,4 @@
 import os
-from tkinter import CENTER
 import matplotlib.pyplot as plt
 
 def visualize_maze(matrix, start, end, route=None):
@@ -52,7 +51,7 @@ def visualize_maze(matrix, start, end, route=None):
 
     plt.text(end[1],-end[0],'EXIT',color='red',
          horizontalalignment='center',
-         verticalalignment='center', ha=CENTER)
+         verticalalignment='center')
     plt.xticks([])
     plt.yticks([])
     plt.show()
