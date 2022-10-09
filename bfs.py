@@ -25,7 +25,7 @@ def bfs(matrix,start,end):
 
     while len(queue) != 0:
 
-        parent = queue.pop()
+        parent = queue.pop(0)
 
         if parent == endIndex:
             route(result,endIndex,columns)
