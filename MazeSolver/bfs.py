@@ -32,7 +32,7 @@ def bfs(matrix,start,end):
 
             while parent != -1:
                 parent = visited[parent]
-                if parent != startIndex:
+                if parent != -1:
                     route(result,parent,columns)
 
             result.reverse()
