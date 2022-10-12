@@ -1,7 +1,7 @@
 from setupData import *
 from mazeDrawing import *
 
-def showResult(previous, start, goal, isRoutable):
+def resultConverter(previous, start, goal, isRoutable):
   currentPoint = goal
   converter = pointNameToPointConverter(currentPoint, "_")
   point = (int(converter["x"]), int(converter["y"]))
@@ -15,23 +15,31 @@ def showResult(previous, start, goal, isRoutable):
       point = (int(converter["x"]), int(converter["y"]))
       route = [point] + route
 
-    converter = pointNameToPointConverter(start, "_")
-    start = (int(converter["x"]), int(converter["y"]))
+  # un-comment the code below to show the out-path's visualization
 
-    converter = pointNameToPointConverter(goal, "_")
-    goal = (int(converter["x"]), int(converter["y"]))
+  # converter = pointNameToPointConverter(start, "_")
+  # start = (int(converter["x"]), int(converter["y"]))
 
-    visualize_maze(read_file("maze.txt"), start, goal, route)
-  else:
-    converter = pointNameToPointConverter(start, "_")
-    start = (int(converter["x"]), int(converter["y"]))
+  # converter = pointNameToPointConverter(goal, "_")
+  # goal = (int(converter["x"]), int(converter["y"]))
 
-    converter = pointNameToPointConverter(goal, "_")
-    goal = (int(converter["x"]), int(converter["y"]))
-    
-    visualize_maze(read_file("maze.txt"), start, goal, route)
+  # visualize_maze(read_file(), start, goal, route)
+
+  return route
   
-def DFS(adjacencyList, start, goal):
+def DFS():
+  setupAdjacencyList()
+
+  from GlobalCache import adjacencyList
+  from GlobalCache import global_start
+  from GlobalCache import global_end
+
+  start = pointToPointNameConverter(global_start)
+  goal = pointToPointNameConverter(global_end)
+  
+  # The result variable
+  route = {"isRoutable": False, "path" : []}
+  
   previous = []
   for point in adjacencyList.keys():
     previous.append((point, None))
@@ -49,22 +57,22 @@ def DFS(adjacencyList, start, goal):
   
   if (dfs(start)):
     isRoutable = True
-    showResult(previous, start, goal, isRoutable)
+    route["path"] = resultConverter(previous, start, goal, isRoutable)
     print('Path was found')
-    return True
+    route["isRoutable"] = isRoutable
   else:
     isRoutable = False
-    showResult(previous, start, goal, isRoutable)
+    resultConverter(previous, start, goal, isRoutable)
     print('No path was found')
-    return False
+    route["isRoutable"] = False
 
-setupAdjacencyList()
+  return route
 
-from GlobalCache import adjacencyList
-from GlobalCache import global_start
-from GlobalCache import global_end
 
-start = pointToPointNameConverter(global_start)
-end = pointToPointNameConverter(global_end)
 
-DFS(adjacencyList, start, end)
+route = DFS()
+
+if (route["isRoutable"]):
+  print(f'The way to exit the maze: {route["path"]}')
+else:
+  print("There is no way to exit the maze")
