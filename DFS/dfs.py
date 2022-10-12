@@ -38,7 +38,7 @@ def DFS():
   goal = pointToPointNameConverter(global_end)
   
   # The result variable
-  route = {"isRoutable": False, "path" : []}
+  route = ""
   
   previous = []
   for point in adjacencyList.keys():
@@ -57,14 +57,12 @@ def DFS():
   
   if (dfs(start)):
     isRoutable = True
-    route["path"] = resultConverter(previous, start, goal, isRoutable)
+    route = resultConverter(previous, start, goal, isRoutable)
     print('Path was found')
-    route["isRoutable"] = isRoutable
   else:
     isRoutable = False
     resultConverter(previous, start, goal, isRoutable)
     print('No path was found')
-    route["isRoutable"] = False
 
   return route
 
@@ -72,7 +70,4 @@ def DFS():
 
 route = DFS()
 
-if (route["isRoutable"]):
-  print(f'The way to exit the maze: {route["path"]}')
-else:
-  print("There is no way to exit the maze")
+print(route)
