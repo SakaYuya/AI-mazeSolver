@@ -1,7 +1,8 @@
 import os
+from turtle import st
 import matplotlib.pyplot as plt
 
-def visualize_maze(matrix, start, end, route=None):
+def visualize_maze(matrix, start, end, filename, route=None):
     """
     Args:
       1. matrix: The matrix read from the input file,
@@ -35,8 +36,8 @@ def visualize_maze(matrix, start, end, route=None):
     plt.scatter([i[1] for i in walls],[-i[0] for i in walls],
                 marker='X',s=100,color='black')
     
-    # plt.scatter([i[1] for i in bonus],[-i[0] for i in bonus],
-    #             marker='P',s=100,color='green')
+    #plt.scatter([i[1] for i in bonus],[-i[0] for i in bonus],
+    #            marker='P',s=100,color='green')
 
     plt.scatter(start[1],-start[0],marker='*',
                 s=100,color='gold')
@@ -51,7 +52,15 @@ def visualize_maze(matrix, start, end, route=None):
          verticalalignment='center')
     plt.xticks([])
     plt.yticks([])
+    #Get output
+    plt.savefig(filename + ".png")
+    file = open(filename + ".txt", "w")
+    file.write(str(len(route)))
+    file.close()
+
+    #Show on screen
     plt.show()
+    
 
     print(f'Starting point (x, y) = {start[0], start[1]}')
     print(f'Ending point (x, y) = {end[0], end[1]}')
@@ -61,34 +70,15 @@ def visualize_maze(matrix, start, end, route=None):
 
 
 def read_file(file_name: str = 'maze.txt'):
-  f=open(file_name,'r')
-#   n_bonus_points = int(next(f)[:-1])
-#   bonus_points = []
-#   for i in range(n_bonus_points):
-#     x, y, reward = map(int, next(f)[:-1].split(' '))
-#     bonus_points.append((x, y, reward))
+    f=open(file_name,'r')
+    #   n_bonus_points = int(next(f)[:-1])
+    #   bonus_points = []
+    #   for i in range(n_bonus_points):
+    #     x, y, reward = map(int, next(f)[:-1].split(' '))
+    #     bonus_points.append((x, y, reward))
 
-  text=f.read()
-  matrix=[list(i) for i in text.splitlines()]
-  f.close()
+    text=f.read()
+    matrix=[list(i) for i in text.splitlines()]
+    f.close()
 
-  return matrix
-
-matrix = read_file('maze.txt')
-
-start = [0,0]
-end = [0,0]
-
-for i in range(len(matrix)):
-    for j in range(len(matrix[0])):
-        if matrix[i][j]=='S':
-            start=(i,j)
-
-        elif matrix[i][j]==' ':
-            if (i==0) or (i==len(matrix)-1) or (j==0) or (j==len(matrix[0])-1):
-                end=(i,j)
-                
-        else:
-            pass
-
-visualize_maze(matrix,start,end)
+    return matrix
