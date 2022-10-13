@@ -5,7 +5,7 @@ import A_star
 
 def main():
     #Get matrix
-    matrix = mD.read_file('maze.txt')
+    matrix = mD.read_file('input/level_1/input2.txt')
 
     start = [0,0]
     end = [0,0]
