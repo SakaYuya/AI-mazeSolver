@@ -3,6 +3,7 @@ import bfs
 import greedy
 import A_star
 import dfs
+import ucs
 
 def main():
     #Get matrix
@@ -44,8 +45,12 @@ def main():
     res = A_star.aStar(matrix, start, end)
     mD.visualize_maze(matrix,start,end, "output/A_star",res)
 
-    #A*
+    #DFS
     res = dfs.DFS(matrix, start, end)
     mD.visualize_maze(matrix,start,end, "output/dfs",res)
+
+    #UCS
+    res = ucs.UCS(matrix, start, end)
+    mD.visualize_maze(matrix,start,end, "output/ucs",res)
 
 main()
