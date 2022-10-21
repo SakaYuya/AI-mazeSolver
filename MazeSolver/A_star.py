@@ -102,8 +102,6 @@ def aStar(matrix, start, end):
     h = dis(start, end)
     searchPath = []
     resultPath = []
-
-    print(matrix[0][12])
     
     #Open priority queue
     openList = PriorityQueue()

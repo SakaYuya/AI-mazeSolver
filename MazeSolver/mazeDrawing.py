@@ -55,10 +55,9 @@ def visualize_maze(fig, matrix, start, end, filename, route=None):
     plt.xticks([])
     plt.yticks([])
     #Get output
-    # plt.savefig(filename + ".png")
-    # file = open(filename + ".txt", "w")
-    # file.write(str(len(route)))
-    # file.close()
+    file = open(filename + ".txt", "w")
+    file.write(str(len(route[1])))
+    file.close()
     # artist = []
     # if route:
     #     for i in range(len(route)-2):
@@ -67,7 +66,7 @@ def visualize_maze(fig, matrix, start, end, filename, route=None):
 
     # anim = animation.ArtistAnimation(fig=ax, artists=artist)
     # anim.save('output.gif')
-    drawPath.drawRoute(fig, route)
+    drawPath.drawRoute(fig, route, filename)
     #Show on screen
     plt.show()
     

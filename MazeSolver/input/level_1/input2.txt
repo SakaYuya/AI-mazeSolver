@@ -6,6 +6,6 @@ S    xxx x     xxxx
 x  x  x   xxx  x     x
 x  x           x     x
 x  xxxxxxxxxxxxxxxx  x
-x                    x
-x                    x
+x    x         x     x
+x         x          x
 xxxxxxxxxxxxxxxxxxxxxx

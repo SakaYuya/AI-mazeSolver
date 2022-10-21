@@ -1,9 +1,10 @@
 from timeit import repeat
+from tkinter import W
 from turtle import circle
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-def drawRoute(fig, route):
+def drawRoute(fig, route, outputFileName):
     # ims is a list of lists, each row is a list of artists to draw in the
     # current frame; here we are just animating one artist, the image, in
     # each frame 
@@ -19,7 +20,6 @@ def drawRoute(fig, route):
                         marker='h',color='silver')
         ims.append([im])
 
-
     #Draw result
     x1 = []
     y1 = []
@@ -30,8 +30,8 @@ def drawRoute(fig, route):
         im = plt.scatter(x1, y1,
                         marker='o',color='red')
         ims.append([im])
-    ani = animation.ArtistAnimation(fig, ims, interval=100, repeat=False, blit=True)
+    ani = animation.ArtistAnimation(fig, ims, interval=100, blit=True)
 
-    ani.save('dynamic_images.gif')
+    ani.save(outputFileName + '.gif')
 
     plt.show()

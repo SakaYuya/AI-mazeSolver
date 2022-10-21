@@ -44,6 +44,6 @@ def main():
 
     #A*
     res = A_star.aStar(matrix, start, end)
-    mD.visualize_maze(ax, matrix,start,end, "output/A_star",res)
+    mD.visualize_maze(ax, matrix,start,end, "output/level_1/input1/A_star",res)
 
 main()
