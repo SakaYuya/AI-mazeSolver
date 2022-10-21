@@ -8,7 +8,7 @@ def main():
     ax=plt.figure()
 
     #Get matrix
-    matrix = mD.read_file('input/level_1/input2.txt')
+    matrix = mD.read_file('input/level_1/input4.txt')
 
     start = [0,0]
     end = [0,0]
@@ -44,6 +44,6 @@ def main():
 
     #A*
     res = A_star.aStar(matrix, start, end)
-    mD.visualize_maze(ax, matrix,start,end, "output/level_1/input1/A_star",res)
+    mD.visualize_maze(ax, matrix,start,end, "output/level_1/input4/A_star",res)
 
 main()

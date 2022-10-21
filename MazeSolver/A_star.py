@@ -24,7 +24,7 @@ class Node:
 
 #Calculate the distant from point a to point b
 def dis(a, b) -> int:
-    return math.sqrt((a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]))
+    return abs(a[0]-b[0]) + abs(a[1]-b[1])
 
 # Priority Queue
 class PriorityQueue(object):
