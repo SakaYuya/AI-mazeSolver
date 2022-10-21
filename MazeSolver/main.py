@@ -2,10 +2,13 @@ import mazeDrawing as mD
 import bfs
 import greedy
 import A_star
+import matplotlib.pyplot as plt
 
 def main():
+    ax=plt.figure()
+
     #Get matrix
-    matrix = mD.read_file('input/level_1/input2.txt')
+    matrix = mD.read_file('input/level_1/input1.txt')
 
     start = [0,0]
     end = [0,0]
@@ -33,14 +36,14 @@ def main():
 
     # BFS
     res = bfs.bfs(matrix, start, end)
-    mD.visualize_maze(matrix,start,end, "output/bfs",res)
+    mD.visualize_maze(ax, matrix,start,end, "output/bfs",res)
 
-    #Greedy
-    res = greedy.greedy(matrix, start, end)
-    mD.visualize_maze(matrix,start,end, "output/greedy",res)
+    # #Greedy
+    # res = greedy.greedy(matrix, start, end)
+    # mD.visualize_maze(matrix,start,end, "output/greedy",res)
 
-    #A*
-    res = A_star.aStar(matrix, start, end)
-    mD.visualize_maze(matrix,start,end, "output/A_star",res)
+    # #A*
+    # res = A_star.aStar(matrix, start, end)
+    # mD.visualize_maze(matrix,start,end, "output/A_star",res)
 
 main()

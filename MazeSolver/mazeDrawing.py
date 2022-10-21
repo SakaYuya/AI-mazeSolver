@@ -1,8 +1,10 @@
 import os
 from turtle import st
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import drawPath
 
-def visualize_maze(matrix, start, end, filename, route=None):
+def visualize_maze(fig, matrix, start, end, filename, route=None):
     """
     Args:
       1. matrix: The matrix read from the input file,
@@ -28,10 +30,10 @@ def visualize_maze(matrix, start, end, filename, route=None):
         direction.pop(0)
 
     #2. Drawing the map
-    ax=plt.figure(dpi=100).add_subplot(111)
+    #ax=plt.figure(dpi=100).add_subplot(111)
 
-    for i in ['top','bottom','right','left']:
-        ax.spines[i].set_visible(False)
+    # for i in ['top','bottom','right','left']:
+    #     ax.spines[i].set_visible(False)
 
     plt.scatter([i[1] for i in walls],[-i[0] for i in walls],
                 marker='X',s=100,color='black')
@@ -42,10 +44,10 @@ def visualize_maze(matrix, start, end, filename, route=None):
     plt.scatter(start[1],-start[0],marker='*',
                 s=100,color='gold')
 
-    if route:
-        for i in range(len(route)-2):
-            plt.scatter(route[i+1][1],-route[i+1][0],
-                        marker=direction[i],color='silver')
+    # if route:
+    #     for i in range(len(route)-2):
+    #         plt.scatter(route[i+1][1],-route[i+1][0],
+    #                     marker=direction[i],color='silver')
 
     plt.text(end[1],-end[0],'EXIT',color='red',
          horizontalalignment='center',
@@ -53,11 +55,19 @@ def visualize_maze(matrix, start, end, filename, route=None):
     plt.xticks([])
     plt.yticks([])
     #Get output
-    plt.savefig(filename + ".png")
-    file = open(filename + ".txt", "w")
-    file.write(str(len(route)))
-    file.close()
+    # plt.savefig(filename + ".png")
+    # file = open(filename + ".txt", "w")
+    # file.write(str(len(route)))
+    # file.close()
+    # artist = []
+    # if route:
+    #     for i in range(len(route)-2):
+    #         plt.scatter(route[i+1][1],-route[i+1][0],
+    #             marker=direction[i],color='silver')
 
+    # anim = animation.ArtistAnimation(fig=ax, artists=artist)
+    # anim.save('output.gif')
+    drawPath.drawRoute(fig, route, direction)
     #Show on screen
     plt.show()
     
@@ -82,3 +92,29 @@ def read_file(file_name: str = 'maze.txt'):
     f.close()
 
     return matrix
+
+# def drawRoute(frame, route):
+#     if route:
+#         direction=[]
+#         for i in range(1,len(route)):
+#             if route[i][0]-route[i-1][0]>0:
+#                 direction.append('v') #^
+#             elif route[i][0]-route[i-1][0]<0:
+#                 direction.append('^') #v        
+#             elif route[i][1]-route[i-1][1]>0:
+#                 direction.append('>')
+#             else:
+#                 direction.append('<')
+
+#         direction.pop(0)
+
+#     # if route:
+#     #     for i in range(len(route)-2):
+#     #         plt.scatter(route[i+1][1],-route[i+1][0],
+#     #                     marker=direction[i],color='silver')
+
+#     x.append(route[frame][0])
+#     y.append(route[frame][1])
+
+#     line.set_data(x,y)
+#     return line,
