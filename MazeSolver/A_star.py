@@ -1,9 +1,10 @@
 from pickle import FALSE, TRUE
-import priorityQueue as pQ
+from re import search
 import matplotlib.pyplot as plt
+import math
 
 class Node:
-    def __init__(self, point, g, h, parent):
+    def __init__(self, point, g, h, parent = None):
         self.point = point
         self.g = g
         self.h = h
@@ -15,29 +16,107 @@ class Node:
     def __lt__(self, other):
         return (self.g + self.h) < (other.g + other.h)
 
+    def __ge__(self, other):
+        return (self.g + self.h) >= (other.g + other.h)
+
+    def __le__(self, other):
+        return (self.g + self.h) <= (other.g + other.h)
+
 #Calculate the distant from point a to point b
 def dis(a, b) -> int:
-    return abs(a[0]-b[0]) + abs(a[1]-b[1])
+    return math.sqrt((a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]))
+
+# Priority Queue
+class PriorityQueue(object):
+    def __init__(self):
+        self.queue = []
+ 
+    def __str__(self):
+        return ' '.join([str(i) for i in self.queue])
+ 
+    # for checking if the queue is empty
+    def isEmpty(self):
+        return len(self.queue) == 0
+
+    def swap(self, i, j):
+        self.queue[i], self.queue[j] = self.queue[j], self.queue[i]
+
+    # heapify
+    def heapify(self, index):
+        length = len(self)
+        while (index < int(length / 2)):
+            childIdx = 2 * index + 1
+            if (childIdx < length - 1):
+                if(self.get(childIdx + 1) < self.get(childIdx)):
+                    childIdx += 1
+            if (self.get(index) <= self.get(childIdx)):
+                break
+            self.swap(index, childIdx)
+            index = childIdx
+    
+    # use for insert
+    def reverseHeapify(self,index):
+        while index > 0:
+            farIdx = int((index - 1)/2)
+            if (self.get(farIdx) > self.get(index)):
+                self.swap(farIdx, index)
+            else:
+                break
+            index = farIdx
+ 
+    # for inserting an element in the queue
+    def push(self, data):
+        self.queue.append(data)
+        self.reverseHeapify(len(self) - 1)
+
+    def pop(self):
+        result = self.get(0)
+        self.swap(0, len(self)-1)
+        self.queue.pop()
+        self.heapify(0)
+        return result
+ 
+    # for popping an element based on Priority
+    # def pop(self):
+        # try:
+        #     min_val = 0
+        #     for i in range(len(self.queue)):
+        #         if self.queue[i] < self.queue[min_val]:
+        #             min_val = i
+        #     item = self.queue[min_val]
+        #     del self.queue[min_val]
+        #     return item
+        # except IndexError:
+        #     print()
+        #     exit()
+
+    def __len__(self):
+        return len(self.queue)
+
+    def get(self, i):
+        return self.queue[i]
 
 def aStar(matrix, start, end):
     #Initialize
     g = 0
     h = dis(start, end)
-    res = []
+    searchPath = []
+    resultPath = []
+
+    print(matrix[0][12])
     
     #Open priority queue
-    openList = pQ.PriorityQueue()
+    openList = PriorityQueue()
     openList.push(Node(start, g, h, start))    
 
     #Create priority queue to save closed node
-    closedList = pQ.PriorityQueue()
+    closedList = PriorityQueue()
 
     #Find the next node
     while not openList.isEmpty():
         #Get node has the lowest distance to end point
         curNode = openList.pop()
-        temp_point = curNode.point
-        
+        searchPath.append(curNode.point)
         #Move curNode to closed list
         closedList.push(curNode)
         #Check all node that reachable from curNode
@@ -47,9 +126,9 @@ def aStar(matrix, start, end):
                 nextPoint = (curNode.point[0]-1, curNode.point[1])
             elif i==1 and curNode.point[1]>0:
                 nextPoint = (curNode.point[0], curNode.point[1]-1)
-            elif i==2 and curNode.point[0]<len(matrix[0]):
+            elif i==2 and curNode.point[0]<len(matrix)-1:
                 nextPoint = (curNode.point[0]+1, curNode.point[1])
-            elif i==3 and curNode.point[1]>len(matrix):
+            elif i==3 and curNode.point[1]<len(matrix[0])-1:
                 nextPoint = (curNode.point[0], curNode.point[1]+1)
             else:
                 continue
@@ -93,20 +172,10 @@ def aStar(matrix, start, end):
             #Get shortest path
             temp = curNode
             while temp != start:
-                res.append(temp.point)
+                resultPath.append(temp.point)
                 temp = temp.parent
             break
-
-    #Get result
-    res.reverse()
+    # for i in range(len(closedList)):
+    #     resultPath.append(closedList.get(i).point)
     
-    return res
-
-
-
-
-            
-                
-
-
-        
+    return [searchPath, resultPath]

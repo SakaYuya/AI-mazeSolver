@@ -8,7 +8,7 @@ def main():
     ax=plt.figure()
 
     #Get matrix
-    matrix = mD.read_file('input/level_1/input1.txt')
+    matrix = mD.read_file('input/level_1/input2.txt')
 
     start = [0,0]
     end = [0,0]
@@ -34,16 +34,16 @@ def main():
     # #mD.visualize_maze(matrix,start,end, "DFS",res)    
     # dfs.showResult()
 
-    # BFS
-    res = bfs.bfs(matrix, start, end)
-    mD.visualize_maze(ax, matrix,start,end, "output/bfs",res)
+    # # BFS
+    # res = bfs.bfs(matrix, start, end)
+    # mD.visualize_maze(ax, matrix,start,end, "output/bfs",res)
 
     # #Greedy
     # res = greedy.greedy(matrix, start, end)
     # mD.visualize_maze(matrix,start,end, "output/greedy",res)
 
-    # #A*
-    # res = A_star.aStar(matrix, start, end)
-    # mD.visualize_maze(matrix,start,end, "output/A_star",res)
+    #A*
+    res = A_star.aStar(matrix, start, end)
+    mD.visualize_maze(ax, matrix,start,end, "output/A_star",res)
 
 main()

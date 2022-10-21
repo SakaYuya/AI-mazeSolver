@@ -15,19 +15,19 @@ def visualize_maze(fig, matrix, start, end, filename, route=None):
     #1. Define walls and array of direction based on the route
     walls=[(i,j) for i in range(len(matrix)) for j in range(len(matrix[0])) if matrix[i][j]=='x']
 
-    if route:
-        direction=[]
-        for i in range(1,len(route)):
-            if route[i][0]-route[i-1][0]>0:
-                direction.append('v') #^
-            elif route[i][0]-route[i-1][0]<0:
-                direction.append('^') #v        
-            elif route[i][1]-route[i-1][1]>0:
-                direction.append('>')
-            else:
-                direction.append('<')
+    # if route:
+    #     direction=[]
+    #     for i in range(1,len(route)):
+    #         if route[i][0]-route[i-1][0]>0:
+    #             direction.append('v') #^
+    #         elif route[i][0]-route[i-1][0]<0:
+    #             direction.append('^') #v        
+    #         elif route[i][1]-route[i-1][1]>0:
+    #             direction.append('>')
+    #         else:
+    #             direction.append('<')
 
-        direction.pop(0)
+    #     direction.pop(0)
 
     #2. Drawing the map
     #ax=plt.figure(dpi=100).add_subplot(111)
@@ -67,7 +67,7 @@ def visualize_maze(fig, matrix, start, end, filename, route=None):
 
     # anim = animation.ArtistAnimation(fig=ax, artists=artist)
     # anim.save('output.gif')
-    drawPath.drawRoute(fig, route, direction)
+    drawPath.drawRoute(fig, route)
     #Show on screen
     plt.show()
     
