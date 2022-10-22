@@ -71,14 +71,14 @@ def UCS(matrix, start, goal):
     if (curPoint not in visited):
       visited.append(converter)
     
-    preCurPointTotalCost = previous[curPoint]['TotalCost']
+    curPointTotalCost = previous[curPoint]['TotalCost']
     
     if curPoint != goal:
       for point in adjacencyList[curPoint].keys(): 
-        prePointTotalCost = previous[point]['TotalCost']
-        totalCost = adjacencyList[curPoint][point]['cost'] + preCurPointTotalCost
+        pointTotalCost = previous[point]['TotalCost']
+        totalCost = adjacencyList[curPoint][point]['cost'] + curPointTotalCost
         
-        if previous[point]['from'] == None or totalCost < prePointTotalCost:
+        if previous[point]['from'] == None or totalCost < pointTotalCost:
           if q.count(point) != 0: 
             q.remove(point)
           q.append(point) 
