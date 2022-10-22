@@ -22,11 +22,14 @@ def resultConverter(previous, start, goal, isRoutable):
   
 def DFS(matrix, start, end):
   setupAdjacencyList(matrix)
-  from GlobalCache import adjacencyList
+  
+  import GlobalCache
+  reload(GlobalCache)
+  adjacencyList = GlobalCache.adjacencyList
+
   start = pointToPointNameConverter(start)
   end = pointToPointNameConverter(end)
 
-  # The result variable
   route = []
   
   previous = []
@@ -53,8 +56,5 @@ def DFS(matrix, start, end):
   if (dfs(start)):
     isRoutable = True
     route = resultConverter(previous, start, end, isRoutable)
-#     print('Path was found')
-#   else:
-#     print('No path was found')
 
   return [visited, route]

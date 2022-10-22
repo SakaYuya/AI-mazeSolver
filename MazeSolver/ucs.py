@@ -1,5 +1,4 @@
 import queue
-from sqlite3 import converters
 from setupData import *
 from mazeDrawing import *
 
@@ -43,11 +42,14 @@ def resultConverter(previous, start, goal, isRoutable):
   return route
 
 def UCS(matrix, start, goal):
-  visited = []
-
+  print(matrix)
   setupAdjacencyList(matrix)
-  from GlobalCache import adjacencyList
 
+  import GlobalCache
+  reload(GlobalCache)
+  adjacencyList = GlobalCache.adjacencyList
+
+  
   isRoutable = False
   start = pointToPointNameConverter(start)
   goal = pointToPointNameConverter(goal)
