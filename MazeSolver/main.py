@@ -34,21 +34,20 @@ def main():
         # res = dfs.DFS(matrix, start, end)
         # mD.visualize_maze(ax, matrix,start,end, 'output' + inputFile + '/dfs',res)
 
-        # # #mD.visualize_maze(matrix,start,end, "DFS",res)    
-        # # dfs.showResult()
-
-        # # # BFS
-        # # res = bfs.bfs(matrix, start, end)
-        # # mD.visualize_maze(ax, matrix,start,end, "output/bfs",res)
+        # BFS
+        ax=plt.figure()
+        res = bfs.bfs(matrix, start, end)
+        mD.visualize_maze(ax, matrix,start,end, 'output' + inputFile + '/bfs',res)
 
         # # UCS
         # ax=plt.figure()
         # res = ucs.UCS(matrix, start, end)
         # mD.visualize_maze(ax, matrix,start,end, 'output' + inputFile + '/ucs',res)
 
-        # #Greedy
-        # res = greedy.greedy(matrix, start, end)
-        # mD.visualize_maze(matrix,start,end, "output/greedy",res)
+        # Greedy
+        ax=plt.figure()
+        res = greedy.greedy(matrix, start, end)
+        mD.visualize_maze(ax, matrix,start,end, 'output' + inputFile + '/Greedy',res)
 
         #A*
         ax=plt.figure()

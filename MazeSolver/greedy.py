@@ -1,3 +1,7 @@
+
+import os
+import matplotlib.pyplot as plt
+
 def heuristicFunction(point, end):
     d = (point[0] - end[0])*(point[0] - end[0]) + (point[1] - end[1])*(point[1] - end[1])
     return d
@@ -38,6 +42,8 @@ def greedy(matrix,start,end):
 
     result = [] #Mang chua ket qua
     queue = []
+    cost = -1
+    openList = []
     
     rows = len(matrix) #So dong
     columns = len(matrix[0]) #So cot
@@ -46,7 +52,7 @@ def greedy(matrix,start,end):
     privious = [(-1,-1) for i in range(0,numNode) ]
 
     insert(queue,start,end)
-
+    openList.append(start)
     while len(queue) != 0:
 
         parent = pop(queue, end)
@@ -60,7 +66,8 @@ def greedy(matrix,start,end):
                 result.append(parent)
 
             result.reverse()
-            return result
+            cost = len(result) - 1
+            return [openList, result]
 
         for i in range(-1,1): #4 huong len, xuong, trai, phai 
             for j in range(0,2):
@@ -70,8 +77,16 @@ def greedy(matrix,start,end):
                 
                 if (x >= 0) and (x < rows) and (y >= 0) and (y < columns):
                     index = x * columns + y
-                    if(matrix[x][y] == ' ') and (visited[index] == 0):
+                    if(matrix[x][y] == ' 'or matrix[x][y] == '+') and (visited[index] == 0):
                         insert(queue,(x,y),end)
                         privious[index] = parent
+                        openList.append((x,y))
     
-    return result
+    result.clear()
+    return [openList, result]
+
+#[result,openList,cost] = greedy(matrix,start,end)
+#print(result)
+#print(cost)
+#print(openList)
+#visualize_maze(matrix,start,end,result)

@@ -1,12 +1,14 @@
 def route(result,pointIndex,columns):
     x = int(pointIndex / columns)
     y = int(pointIndex % columns)
-    result.append([x,y])
+    result.append((x,y))
 
 
 def bfs(matrix,start,end):
 
     result = [] #Mang chua ket qua
+    openList = []
+    cost = -1
 
     rows = len(matrix) #So dong
     columns = len(matrix[0]) #So cot
@@ -22,6 +24,7 @@ def bfs(matrix,start,end):
 
     queue.append(startIndex);
     visited[startIndex]= -1;
+    openList.append(start)
 
     while len(queue) != 0:
 
@@ -36,7 +39,8 @@ def bfs(matrix,start,end):
                     route(result,parent,columns)
 
             result.reverse()
-            return result
+            cost = len(result) - 1
+            return [openList, result]
 
         for i in range(-1,1): #4 huong len, xuong, trai, phai 
             for j in range(0,2):
@@ -49,5 +53,12 @@ def bfs(matrix,start,end):
                     if matrix[x][y] != 'x' and  visited[index] == -2 :
                         queue.append(index)
                         visited[index] = parent;
+                        openList.append((x,y))
     
-    return result
+    result.clear()
+    return [openList, result]
+
+
+#[result,openList,cost] = bfs(matrix,start,end)
+#print(result)
+#print(cost)

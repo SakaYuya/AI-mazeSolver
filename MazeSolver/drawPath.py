@@ -30,8 +30,11 @@ def drawRoute(fig, route, outputFileName):
         im = plt.scatter(x1, y1,
                         marker='o',color='red')
         ims.append([im])
+
+    Writer = animation.writers['ffmpeg']
+    writer = Writer(fps=15, metadata=dict(artist='Me'), bitrate=1800)    
     ani = animation.ArtistAnimation(fig, ims, interval=100, blit=True)
 
-    ani.save(outputFileName + '.gif')
+    ani.save(outputFileName + '.mp4', writer=writer)
 
     plt.show()
