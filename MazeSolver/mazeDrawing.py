@@ -52,6 +52,7 @@ def visualize_maze(fig, matrix, start, end, filename, route=None):
     plt.text(end[1],-end[0],'EXIT',color='red',
          horizontalalignment='center',
          verticalalignment='center')
+    
     plt.xticks([])
     plt.yticks([])
     #Get output

@@ -1,49 +1,58 @@
 import mazeDrawing as mD
+import dfs
 import bfs
+import ucs
 import greedy
 import A_star
 import matplotlib.pyplot as plt
 
 def main():
-    ax=plt.figure()
+    for k in '12345':
+        #Get matrix
+        inputFile = '/level_1/input' + k
+        matrix = mD.read_file('input' + inputFile + '.txt')
 
-    #Get matrix
-    matrix = mD.read_file('input/level_1/input4.txt')
+        start = [0,0]
+        end = [0,0]
 
-    start = [0,0]
-    end = [0,0]
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if matrix[i][j]=='S':
+                    start=(i,j)
 
-    for i in range(len(matrix)):
-        for j in range(len(matrix[0])):
-            if matrix[i][j]=='S':
-                start=(i,j)
-
-            elif matrix[i][j]==' ':
-                if (i==0) or (i==len(matrix)-1) or (j==0) or (j==len(matrix[0])-1):
-                    end=(i,j)
-                    
-            else:
-                pass
+                elif matrix[i][j]==' ':
+                    if (i==0) or (i==len(matrix)-1) or (j==0) or (j==len(matrix[0])-1):
+                        end=(i,j)
+                        
+                else:
+                    pass
 
 
-    # # DFS
-    # res = dfs.DFS(matrix, start, end)
-    # for i in range(len(res)):
-    #     print(res[i])
+        # #DFS
+        
+        # ax=plt.figure()
+        # res = dfs.DFS(matrix, start, end)
+        # mD.visualize_maze(ax, matrix,start,end, 'output' + inputFile + '/dfs',res)
 
-    # #mD.visualize_maze(matrix,start,end, "DFS",res)    
-    # dfs.showResult()
+        # # #mD.visualize_maze(matrix,start,end, "DFS",res)    
+        # # dfs.showResult()
 
-    # # BFS
-    # res = bfs.bfs(matrix, start, end)
-    # mD.visualize_maze(ax, matrix,start,end, "output/bfs",res)
+        # # # BFS
+        # # res = bfs.bfs(matrix, start, end)
+        # # mD.visualize_maze(ax, matrix,start,end, "output/bfs",res)
 
-    # #Greedy
-    # res = greedy.greedy(matrix, start, end)
-    # mD.visualize_maze(matrix,start,end, "output/greedy",res)
+        # # UCS
+        # ax=plt.figure()
+        # res = ucs.UCS(matrix, start, end)
+        # mD.visualize_maze(ax, matrix,start,end, 'output' + inputFile + '/ucs',res)
 
-    #A*
-    res = A_star.aStar(matrix, start, end)
-    mD.visualize_maze(ax, matrix,start,end, "output/level_1/input4/A_star",res)
+        # #Greedy
+        # res = greedy.greedy(matrix, start, end)
+        # mD.visualize_maze(matrix,start,end, "output/greedy",res)
+
+        #A*
+        ax=plt.figure()
+        res = A_star.aStar(matrix, start, end)
+        mD.visualize_maze(ax, matrix,start,end, 'output' + inputFile + '/A_star',res)
 
 main()
