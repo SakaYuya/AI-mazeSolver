@@ -42,7 +42,6 @@ def resultConverter(previous, start, goal, isRoutable):
   return route
 
 def UCS(matrix, start, goal):
-  print(matrix)
   setupAdjacencyList(matrix)
 
   import GlobalCache
