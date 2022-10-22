@@ -38,8 +38,6 @@ def setupAdjacencyList(matrix):
             left  = f'{x}_{y - 1}'
             right = f'{x}_{y + 1}'
             
-            print(f'{vertex} : {up} {down} {left} {right}')
-
             builder += f'\n\t"{vertex}" : {{'
             if (up in mapConverter): builder += f'\n\t\t"{up}" : {{"cost" : 1}},'
             if (down in mapConverter): builder += f'\n\t\t"{down}" : {{"cost" : 1}},'
