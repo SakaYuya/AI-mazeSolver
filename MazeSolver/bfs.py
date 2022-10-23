@@ -8,7 +8,7 @@ def bfs(matrix,start,end):
 
     result = [] #Mang chua ket qua
     openList = []
-    cost = -1
+    
 
     rows = len(matrix) #So dong
     columns = len(matrix[0]) #So cot
@@ -39,7 +39,7 @@ def bfs(matrix,start,end):
                     route(result,parent,columns)
 
             result.reverse()
-            cost = len(result) - 1
+            
             return [openList, result]
 
         for i in range(-1,1): #4 huong len, xuong, trai, phai 
