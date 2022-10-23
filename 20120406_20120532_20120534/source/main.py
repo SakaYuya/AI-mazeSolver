@@ -1,4 +1,5 @@
 from imp import reload
+import importlib
 import mazeDrawing as mD
 import dfs
 import bfs
@@ -11,7 +12,7 @@ import sys
 def main():
     mainFileNameLen = len("/source/main.py")
     _SH_FILE_DIR_ = sys.argv[0] # .../source/main.py
-    
+
     # folder contain "run.sh" (no '/' character at the end)
     _SH_FILE_DIR_ = _SH_FILE_DIR_[:-mainFileNameLen]
 
@@ -19,7 +20,7 @@ def main():
         file.write(f'_SH_FILE_DIR_ = "{_SH_FILE_DIR_}"')
 
     import dir
-    reload(dir)
+    importlib.reload(dir)
 
     outputDir = f'{dir._SH_FILE_DIR_}/output'
 
@@ -60,28 +61,36 @@ def main():
 
         # #DFS
         
-        # ax=plt.figure()
-        # res = dfs.DFS(matrix, start, end)
-        # mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/dfs',res)
+        ax=plt.figure()
+        res = dfs.DFS(matrix, start, end)
+        mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/dfs',res)
 
         # BFS
         ax=plt.figure()
         res = bfs.bfs(matrix, start, end)
         mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/bfs',res)
 
-        # # UCS
-        # ax=plt.figure()
-        # res = ucs.UCS(matrix, start, end)
-        # mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/ucs',res)
+        # UCS
+        ax=plt.figure()
+        res = ucs.UCS(matrix, start, end)
+        mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/ucs',res)
 
         # Greedy
         ax=plt.figure()
-        res = greedy.greedy(matrix, start, end)
-        mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/Greedy',res)
+        res = greedy.greedy(matrix, start, end, heuristicOption=1)
+        mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/greedy_heuristic_1',res)
+
+        ax=plt.figure()
+        res = greedy.greedy(matrix, start, end, heuristicOption=2)
+        mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/greedy_heuristic_2',res)
 
         #A*
         ax=plt.figure()
-        res = A_star.aStar(matrix, start, end)
-        mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/A_star',res)
+        res = A_star.aStar(matrix, start, end, option=0)
+        mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/a_star_heuristic_1',res)
+
+        ax=plt.figure()
+        res = A_star.aStar(matrix, start, end, option=1)
+        mD.visualize_maze(ax, matrix,start,end, outputDir + '/level_1/' + minimalInputFileName + '/a_star_heuristic_2',res)
 
 main()
