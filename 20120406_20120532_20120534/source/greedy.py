@@ -77,7 +77,7 @@ def greedy(matrix,start,end,heuristicOption):
                 result.append(parent)
 
             result.reverse()
-            return [result,openList]
+            return [openList, result]
 
         for i in range(-1,1): #4 huong len, xuong, trai, phai 
             for j in range(0,2):
@@ -93,4 +93,4 @@ def greedy(matrix,start,end,heuristicOption):
                         openList.append((x,y))
     
     result.clear()
-    return [result,openList]
+    return [openList, result]

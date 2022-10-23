@@ -57,7 +57,11 @@ def visualize_maze(fig, matrix, start, end, filename, route=None):
     plt.yticks([])
     #Get output
     file = open(filename + ".txt", "w")
-    file.write(str(len(route[1])))
+    if(len(route[1])==0):
+      file.write('NO')
+    elif (len(route[1])>0):
+      file.write(str(len(route[1])-1))
+
     file.close()
     # artist = []
     # if route:

@@ -22,9 +22,14 @@ class Node:
     def __le__(self, other):
         return (self.g + self.h) <= (other.g + other.h)
 
-#Calculate the distant from point a to point b
-def dis(a, b) -> int:
+#Calculate the distant from point a to point b for heuristic 0
+def dis0(a, b) -> int:
     return abs(a[0]-b[0]) + abs(a[1]-b[1])
+
+#Calculate the distant from point a to point b for heuristic 1
+#a(x1,y1)->b(x2,y2): sqrt((x1-x2)^2 + (y1-y2)^2)
+def dis1(a, b) -> int:
+    return math.sqrt(math.pow(a[0]-b[0],2) + math.pow(a[1]-b[1],2))
 
 # Priority Queue
 class PriorityQueue(object):
@@ -96,10 +101,14 @@ class PriorityQueue(object):
     def get(self, i):
         return self.queue[i]
 
-def aStar(matrix, start, end):
+def aStar(matrix, start, end, option=0):
     #Initialize
     g = 0
-    h = dis(start, end)
+    h = 0
+    if option==0:
+        h = dis0(start, end)
+    else:
+        h = dis1(start, end)
     searchPath = []
     resultPath = []
     
@@ -113,6 +122,8 @@ def aStar(matrix, start, end):
     #Find the next node
     while not openList.isEmpty():
         #Get node has the lowest distance to end point
+        if openList.isEmpty():
+            return [searchPath, resultPath]
         curNode = openList.pop()
         searchPath.append(curNode.point)
         #Move curNode to closed list
@@ -149,7 +160,11 @@ def aStar(matrix, start, end):
             check = False   
             index = -1    
             temp_g = curNode.g + 1
-            temp_h = dis(nextPoint, end)
+            temp_h = 0
+            if option == 0:
+                temp_h = dis0(nextPoint, end)
+            else:
+                temp_h = dis1(nextPoint, end)
             tempNode = Node(nextPoint, temp_g, temp_h, curNode)  
             for i in range(0,len(openList)):
                 if openList.get(i).point == nextPoint:
@@ -175,5 +190,6 @@ def aStar(matrix, start, end):
             break
     # for i in range(len(closedList)):
     #     resultPath.append(closedList.get(i).point)
+    resultPath.reverse()
     
     return [searchPath, resultPath]
