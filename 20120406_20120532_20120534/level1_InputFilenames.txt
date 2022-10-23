@@ -1,0 +1,5 @@
+./input/level_1/input1.txt
+./input/level_1/input2.txt
+./input/level_1/input3.txt
+./input/level_1/input4.txt
+./input/level_1/input5.txt
